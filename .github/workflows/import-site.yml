@@ -1,7 +1,5 @@
-name: Import workshop website
-on:
-  push:
-  workflow_dispatch:
+name: Import workshop website (manual)
+on: workflow_dispatch
 permissions:
   contents: write
 jobs:
