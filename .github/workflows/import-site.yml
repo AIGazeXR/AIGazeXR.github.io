@@ -1,0 +1,19 @@
+name: Import workshop website
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy public site files
+        run: |
+          git clone --depth 1 https://github.com/Xuning-Hu/aigazexr-2027.git /tmp/aigazexr-source
+          rsync -a --exclude='.git' /tmp/aigazexr-source/ ./
+          git add .
+          if git diff --cached --quiet; then exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Import AIGazeXR 2027 website"
+          git push
